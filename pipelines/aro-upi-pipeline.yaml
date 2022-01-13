@@ -1,0 +1,43 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  - master
+  
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build cluster and it's resources
+  jobs:
+  - job: Generate Openshift Configuration Files
+    displayName: Generate openshif config file for ARO UPI deployment
+    steps:
+
+    # Create directory
+    # copy file
+    # extract file
+    - task: PowerShell@2
+      displayName: Make directories
+      inputs:
+        targetType: 'inline'
+        script: |
+          mkdir $HOME/var
+          mkdir $HOME/clusterconfig
+
+    - task: CopyFiles@2
+      inputs:
+        sourceFolder:  $(Build.SourcesDirectory)/var
+        contents: '**' 
+        targetFolder: $HOME/var
+        OverWrite: true
+
+    - task: PowerShell@2
+      displayName: Extract file
+      inputs:
+        targetType: 'inline'
+        script: |
+          tar -xvf $HOME/var/openshift-install-linux.tar.gz
