@@ -25,7 +25,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          mkdir var
+          mkdir downloads
           mkdir clusterconfig
           ls -a
 
@@ -33,7 +33,7 @@ stages:
       inputs:
         sourceFolder:  $(Build.SourcesDirectory)/var
         contents: '**' 
-        targetFolder: $(Build.ArtifactStagingDirectory)/var
+        targetFolder: $(Build.ArtifactStagingDirectory)/downloads
         OverWrite: true
 
     - task: PowerShell@2
@@ -41,4 +41,5 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          tar -xvf $(Build.ArtifactStagingDirectory)/var/openshift-install-linux.tar.gz
+          tar -xvf $(Build.ArtifactStagingDirectory)/downloads/openshift-install-linux.tar.gz
+          ls -a
