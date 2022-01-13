@@ -39,4 +39,19 @@ stages:
         targetType: 'inline'
         script: |
           tar -xvf $(Build.ArtifactStagingDirectory)/downloads/openshift-install-linux.tar.gz
+    
+    - task: CopyFiles@2
+      inputs:
+        sourceFolder:  $(Build.ArtifactStagingDirectory)
+        contents: 'openshift-install'
+        targetFolder: $(Build.ArtifactStagingDirectory)/etc/
+        OverWrite: true
+
+    - task: PowerShell@2
+      displayName: RunCmmd
+      inputs:
+        targetType: 'inline'
+        script: |
           openshift-install create manifests --dir clusterconfig
+    
+    
