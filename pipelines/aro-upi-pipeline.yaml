@@ -17,9 +17,6 @@ stages:
     displayName: Generate openshif config file for ARO UPI deployment
     steps:
 
-    # Create directory
-    # copy file
-    # extract file
     - task: PowerShell@2
       displayName: MakeDirectories
       inputs:
@@ -42,4 +39,4 @@ stages:
         targetType: 'inline'
         script: |
           tar -xvf $(Build.ArtifactStagingDirectory)/downloads/openshift-install-linux.tar.gz
-          ls -a
+          openshift-install create manifests --dir clusterconfig
