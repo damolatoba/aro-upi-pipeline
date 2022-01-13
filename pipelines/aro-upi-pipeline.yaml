@@ -27,6 +27,7 @@ stages:
         script: |
           mkdir $HOME/var
           mkdir $HOME/clusterconfig
+          ls -a
 
     - task: CopyFiles@2
       inputs:
